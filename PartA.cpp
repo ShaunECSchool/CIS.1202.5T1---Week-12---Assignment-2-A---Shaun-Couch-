@@ -37,21 +37,71 @@ Do not allow upper- and lower-case transitions.  character('A', 32) should throw
 
 char character(char, int);
 
+class invalidCharacterException : public exception 
+{
+private:
+    string message;
+public:
+    invalidCharacterException(const string & msg)
+    { 
+        message = msg;
+    }
+};
+
+class invalidRangeException : public exception 
+{
+private:
+    string message;
+public:
+    invalidRangeException(const string & msg)
+    {
+        message = msg;
+    }
+};
+
 //Main-------------------------------------------
 
 int main()
 {
+    char testChar;
+    int testOffset;
+
+
     //test1
-    character('a', 1);
-
+    testChar = 'a';
+    testOffset = 1;
+    
+    try
+    {
+        cout << "character('" << testChar << "', " << testOffset << ") = " << character(testChar, testOffset) << endl;
+    }   
+    catch (const invalidCharacterException & e)
+    {
+        cout << "Error: " << e.what() << endl;
+    }
+    
     //test2
-    character('a', -1);
+    testChar = 'a';
+    testOffset = -1;
 
+    try
+    {
+        cout << "character('" << testChar << "', " << testOffset << ") = " << character(testChar, testOffset) << endl;
+    }
+    catch (const invalidCharacterException & e)
+    {
+        cout << "Error: " << e.what() << endl;
+    }
+    catch (const invalidRangeException & e)
+    {
+        cout << "Error: " << e.what() << endl;
+    }
     //test3
-    character('Z', -1);
+    //character('Z', -1);
 
     //test4
-    character('D', 5);
+    //character('D', 5);
+
     return 0;
 }
 
@@ -59,5 +109,13 @@ int main()
 
 char character(char start, int offset)
 {
-    
+    if (!isalpha(start))
+    {
+        throw invalidCharacterException("Character is not a letter.");
+    }
+    if (!isalpha(start + offset))
+    {
+        throw invalidRangeException("Target character is not a letter.");
+    }
+    return (start + offset);
 }
