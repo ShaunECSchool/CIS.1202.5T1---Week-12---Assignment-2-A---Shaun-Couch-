@@ -38,6 +38,9 @@ void swapper(T & a, T & b);
 
 int main()
 {
+    output (5);
+    output (19284.3232);
+    output ("Hello, world!");
     return 0;
 }
 
