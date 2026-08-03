@@ -32,10 +32,7 @@ character('?', 5) should throw an invalidCharacterExcpeption.
 Do not allow upper- and lower-case transitions.  character('A', 32) should throw an exception, not return 'a'.
 */
 
-
-//Function Prototypes-------------------------------------------
-
-char character(char, int);
+//Class Definitions-------------------------------------------
 
 class invalidCharacterException : public exception 
 {
@@ -58,6 +55,10 @@ public:
         message = msg;
     }
 };
+
+//Function Prototypes-------------------------------------------
+
+char character(char, int);
 
 //Main-------------------------------------------
 
